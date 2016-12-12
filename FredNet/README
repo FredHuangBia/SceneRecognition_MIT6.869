@@ -1,0 +1,3 @@
+This FredNet, named after one of ours English name, is our very early experiment.
+We didn't have initialization trick nor batch normalization.
+To train, run 'python3 frednet.py'.

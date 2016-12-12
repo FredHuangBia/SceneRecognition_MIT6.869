@@ -3,7 +3,7 @@ import read_batch as rb
 import tensorflow as tf
 from parameters import *
 
-learning_rate = 0.01
+learning_rate = 0.001
 training_iters = 100000
 batch_size = 32
 display_step = 20
@@ -22,11 +22,6 @@ keep_prob = tf.placeholder(tf.float32)
 def top_k_error(predictions, labels, k):
     in_top1 = tf.to_float(tf.nn.in_top_k(predictions, labels, k))
     num_correct = tf.reduce_sum(in_top1)
-    # num=0
-    # for img in in_top1:
-    #     if img==1:
-    #         print(labels[num])
-    #     num+=1
     return (batch_size - num_correct) / batch_size
 
 def conv2d(name, l_input, w):
@@ -203,8 +198,8 @@ with tf.Session() as sess:
     train = True
     # Keep training until reach max iterations
     if train:
-        saver.restore(sess,"frednet-10000")
-        step=10001
+        saver.restore(sess,"frednet-12000")
+        step=12001
         while step  <= training_iters:
             batch = rb.generate_triple_samples(batch_size)
 
@@ -222,7 +217,6 @@ with tf.Session() as sess:
                 saver.save(sess,'frednet',global_step=step)
             step += 1
         print ("Optimization Finished!")
-
 
     else:
         evl_size=32
